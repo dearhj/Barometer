@@ -57,7 +57,9 @@ class MainActivity : AppCompatActivity() {
         }
         altitudeCheck?.setOnClickListener { showEditTextDialog() }
         deleteCheck?.setOnClickListener {
-            if ((sp?.getFloat("StandardAtmosphericPressure", 1013.25f) ?: 1013.25f) == 1013.25f) toast(getString(R.string.no_data))
+            if ((sp?.getFloat("StandardAtmosphericPressure", 1013.25f)
+                    ?: 1013.25f) == 1013.25f
+            ) toast(getString(R.string.no_data))
             else showDialog()
         }
     }
@@ -90,12 +92,12 @@ class MainActivity : AppCompatActivity() {
                     val altitude =
                         SensorManager.getAltitude(mStandardAtmosphericPressure, currentBarometer)
                     dashboardView?.udDataSpeed(showPressureValue)
-                    barometerValue?.text = "$showPressureValue hPa"
-                    altitudeValue?.text = "${(altitude * 100 + 0.5f).toInt() / 100f} m"
+                    barometerValue?.text = " $showPressureValue hPa"
+                    altitudeValue?.text = " ${(altitude * 100 + 0.5f).toInt() / 100f} m"
                     //模拟数据
                     val value = 25.6f
                     val fValue = (value * 9 / 5) + 32
-                    temperatureValue?.text = "$value °C / $fValue °F"
+                    temperatureValue?.text = " $value °C / $fValue °F"
 //                    println("这里的数值是》》》》》    $currentBarometer     $altitude")
                 }
             } else if (event.sensor.type == TYPE_TEMPERATURE || event.sensor.type == TYPE_AMBIENT_TEMPERATURE) {
@@ -104,7 +106,7 @@ class MainActivity : AppCompatActivity() {
                     val temperatureSensorValue = event.values[0]
                     val value = 25.6f
                     val fValue = (value * 9 / 5) + 32
-                    temperatureValue?.text = "$value °C / $fValue °F"
+                    temperatureValue?.text = " $value °C / $fValue °F"
                 }
             }
         }
@@ -141,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                 mStandardAtmosphericPressure = 1013.25f
                 val altitude =
                     SensorManager.getAltitude(mStandardAtmosphericPressure, currentBarometer)
-                altitudeValue?.text = "${(altitude * 100 + 0.5f).toInt() / 100f} m"
+                altitudeValue?.text = " ${(altitude * 100 + 0.5f).toInt() / 100f} m"
             }
             .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
             .create()
@@ -187,13 +189,13 @@ class MainActivity : AppCompatActivity() {
             .setTitle(getString(R.string.currentAltitude))
             .setView(dialogView)
             .setPositiveButton(getString(R.string.sure)) { _, _ ->
-                if(inputValue.text.toString() != "") {
+                if (inputValue.text.toString() != "") {
                     val value = inputValue.text.toString().toFloat()
                     mStandardAtmosphericPressure = getBasePressure(value)
                     sp?.edit()
                         ?.putFloat("StandardAtmosphericPressure", mStandardAtmosphericPressure)
                         ?.apply()
-                    altitudeValue?.text = "$value m"
+                    altitudeValue?.text = " $value m"
                 }
             }
             .setNegativeButton(getString(R.string.cancel)) { _, _ -> }

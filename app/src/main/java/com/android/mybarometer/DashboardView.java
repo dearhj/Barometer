@@ -216,8 +216,8 @@ public class DashboardView extends View {
         canvas.rotate(startAngele + currentDegree);
         pointerPaint.setColor(Color.WHITE);
         pointerPath.moveTo(mRadius, 0);
-        pointerPath.lineTo(0, -5);
-        pointerPath.lineTo(0, 5);
+        pointerPath.lineTo(0, -10);
+        pointerPath.lineTo(0, 10);
         pointerPath.close();
         canvas.drawPath(pointerPath, pointerPaint);
         canvas.restore();
