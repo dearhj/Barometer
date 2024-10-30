@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">MyBarometer</string>
+    <string name="app_name">Barometer</string>
+    <string name="barometerValue">Pressure: </string>
+    <string name="altitudeValue">Altitude: </string>
+    <string name="temperatureValue">Temperature: </string>
+    <string name="deleteCheck">Delete calibration</string>
+    <string name="altitudeCheck">Altitude calibration</string>
+    <string name="sure">Sure</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_sure">Are you sure to delete calibration data?</string>
+    <string name="no_data">No calibration data available</string>
+    <string name="currentAltitude">Please enter the current altitude(m)</string>
 </resources>

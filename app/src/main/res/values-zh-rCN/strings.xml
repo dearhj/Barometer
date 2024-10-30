@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">气压计</string>
+    <string name="barometerValue">气压: </string>
+    <string name="altitudeValue">海拔: </string>
+    <string name="temperatureValue">温度: </string>
+    <string name="deleteCheck">删除校准</string>
+    <string name="altitudeCheck">海拔校准</string>
+    <string name="sure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="delete_sure">确认删除校准数据?</string>
+    <string name="no_data">无校准数据</string>
+    <string name="currentAltitude">请输入当前海拔(米)</string>
+</resources>
