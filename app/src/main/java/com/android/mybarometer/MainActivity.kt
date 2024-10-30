@@ -131,6 +131,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun showDialog() {
         val dialog: AlertDialog = AlertDialog.Builder(this)
             .setTitle(getString(R.string.delete_sure))
@@ -138,6 +139,9 @@ class MainActivity : AppCompatActivity() {
                 sp?.edit()?.putFloat("StandardAtmosphericPressure", 1013.25f)
                     ?.apply()
                 mStandardAtmosphericPressure = 1013.25f
+                val altitude =
+                    SensorManager.getAltitude(mStandardAtmosphericPressure, currentBarometer)
+                altitudeValue?.text = "${(altitude * 100 + 0.5f).toInt() / 100f} m"
             }
             .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
             .create()
