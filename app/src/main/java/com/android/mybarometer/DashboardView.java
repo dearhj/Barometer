@@ -293,10 +293,10 @@ public class DashboardView extends View {
 
         drawPointerText(canvas, mRadiusG - arcW, maxScalew / 2, 40);
         canvas.restore();
-        count = 450;
+        count = 300;
     }
 
-    int count = 450;
+    int count = 300;
 
     private void drawPointerText(Canvas canvas, int x, int y, int i) {
         //动态设置刻度文字颜色。
@@ -304,7 +304,7 @@ public class DashboardView extends View {
 
         mTextPaint.setColor(Color.WHITE);
 
-        if (i != 0) count += 75;
+        if (i != 0) count += 100;
         //保存状态
         canvas.save();
 
@@ -341,9 +341,10 @@ public class DashboardView extends View {
      */
     public void udDataSpeed(float value) {
         speed = String.valueOf(value);
-        if (value < 450f) return;
-        float constant = SWEEPANGLE / 8f / 75;
-        startAnimation(currentDegree, (value - 450) * constant);
+        if (value < 300f) return;
+        if (value > 1100) value = 1100;
+        float constant = SWEEPANGLE / 8f / 100;
+        startAnimation(currentDegree, (value - 300) * constant);
     }
 
     //指针+阴影偏移动画.
