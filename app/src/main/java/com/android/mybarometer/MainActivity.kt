@@ -7,7 +7,6 @@ import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.Sensor.TYPE_AMBIENT_TEMPERATURE
 import android.hardware.Sensor.TYPE_PRESSURE
-import android.hardware.Sensor.TYPE_TEMPERATURE
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
@@ -94,19 +93,15 @@ class MainActivity : AppCompatActivity() {
                     dashboardView?.udDataSpeed(showPressureValue)
                     barometerValue?.text = " $showPressureValue hPa"
                     altitudeValue?.text = " ${(altitude * 100 + 0.5f).toInt() / 100f} m"
-                    //模拟数据
-                    val value = 25.6f
-                    val fValue = (value * 9 / 5) + 32
-                    temperatureValue?.text = " $value °C / $fValue °F"
-//                    println("这里的数值是》》》》》    $currentBarometer     $altitude")
                 }
-            } else if (event.sensor.type == TYPE_TEMPERATURE || event.sensor.type == TYPE_AMBIENT_TEMPERATURE) {
+            } else if (event.sensor.type == TYPE_AMBIENT_TEMPERATURE) {
                 if (System.currentTimeMillis() - temperatureLastTime > 1000) {
                     temperatureLastTime = System.currentTimeMillis()
                     val temperatureSensorValue = event.values[0]
-                    val value = 25.6f
-                    val fValue = (value * 9 / 5) + 32
-                    temperatureValue?.text = " $value °C / $fValue °F"
+                    val showTemperatureValue =
+                        (temperatureSensorValue * 100 + 0.5f).toInt() / 100f //四舍五入,保留两位小数
+                    val fValue = (showTemperatureValue * 9 / 5) + 32
+                    temperatureValue?.text = " $showTemperatureValue °C / $fValue °F"
                 }
             }
         }
