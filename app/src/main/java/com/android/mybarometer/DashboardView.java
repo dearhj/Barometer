@@ -2,6 +2,7 @@ package com.android.mybarometer;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -63,6 +64,7 @@ public class DashboardView extends View {
     private Paint mTextPaint;
     private Paint mPaint;
     private ValueAnimator mAnim;
+    private int centerTextSize = 60;
 
     public DashboardView(Context context) {
         super(context);
@@ -110,6 +112,12 @@ public class DashboardView extends View {
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
         mTextPaint.setTextSize(60);
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            centerTextSize = 60;
+        } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            centerTextSize = 80;
+        }
     }
 
     @Override
@@ -168,7 +176,7 @@ public class DashboardView extends View {
         mTextPaint.reset();
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
-        mTextPaint.setTextSize(80);
+        mTextPaint.setTextSize(centerTextSize);
         mTextPaint.setAntiAlias(true);
         double mm = mRadius * 0.4;
         RectF rect = new RectF();
@@ -181,10 +189,10 @@ public class DashboardView extends View {
         float baseline = rect.centerY() + distance;
         //速度
         canvas.drawText(speed, rect.centerX(), baseline, mTextPaint);
-        mTextPaint.setTextSize(100);
+        mTextPaint.setTextSize(centerTextSize);
 
         //绘制底部文字(向下20px)
-        float text_h = Math.abs(fontMetrics.top - fontMetrics.bottom) - 80;
+        float text_h = Math.abs(fontMetrics.top - fontMetrics.bottom) + 10;
         String info = "hPa";
         canvas.drawText(info, (float) getMeasuredWidth() / 2, (float) (height / 2) + (mRadius - text_h), mTextPaint);
         //速度文字下划线

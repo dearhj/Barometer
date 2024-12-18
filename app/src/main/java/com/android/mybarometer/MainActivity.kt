@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.Sensor.TYPE_AMBIENT_TEMPERATURE
 import android.hardware.Sensor.TYPE_PRESSURE
@@ -15,11 +17,14 @@ import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import java.io.File
 import kotlin.math.pow
 
 
@@ -35,10 +40,11 @@ class MainActivity : AppCompatActivity() {
     private var mStandardAtmosphericPressure = 1013.25f
     private var sp: SharedPreferences? = null
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        window.navigationBarColor = Color.BLACK
         setContentView(R.layout.barometer_layout)
         sp = PreferenceManager.getDefaultSharedPreferences(this)
         mStandardAtmosphericPressure =
@@ -49,6 +55,10 @@ class MainActivity : AppCompatActivity() {
         temperatureValue = findViewById(R.id.temperature_value)
         altitudeCheck = findViewById(R.id.altitude_check)
         deleteCheck = findViewById(R.id.delete_check)
+        if (File("/sys/devices/platform/camp_led/camp_led").exists())   //T2机型
+            findViewById<LinearLayout>(R.id.temp).visibility = View.GONE   //去掉温度显示
+        if (File("/sys/devices/platform/gftk_camplight/camplight_mode").exists())   //P2PRO机型
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT  //强制竖屏
         try {
             sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         } catch (e: Exception) {
